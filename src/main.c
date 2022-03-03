@@ -1,53 +1,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
-#define N 19
+#include "array_math.h"
 
-void init(int *, int);
-void shuffle(int *, int);
-void output(int *, int);
-void swap(int *, int, int);
+#define N 10
+
+void init(double *, int);
+void shuffle(double *, int);
+void output(double *, int);
+void swap(double *, int, int);
+int max(int a, int b);
 
 int main(void) {
-  srand(time(NULL));
+    srand(time(NULL));
 
-  int arr[N];
-  init(arr,N);
+    double arr[N];
+    double norm[N];
+    init(arr,N);
+    shuffle(arr, N);
+    
+    // array_norm(arr, norm, N);
 
-  shuffle(arr, N);
-
-  output(arr, N);
-  return 0;
+    output(norm, N);
+    return 0;
 }
 
-void output(int *arr, int n) {
-  for (int i=0; i<n; i++) {
-    printf("%d ", arr[i]);
-  }
-  printf("\n");
-}
-
-void shuffle(int *arr, int n) {
-  for (int i=0; i<n/2; i++) {
-
-    int offset = n-1-i;
-    for (int j=0; j<=i; j++) {
-      if (rand()%2) {
-        swap(arr, j, j+offset);
-      }
+void output(double *arr, int n) {
+    for (int i=0; i<n; i++) {
+        printf("%.2lf ", arr[i]);
     }
-  }
 }
 
-void swap(int *arr, int a, int b) {
-  int tmp = arr[a];
-  arr[a] = arr[b];
-  arr[b] = tmp;
+int max(int a, int b) {
+    return a > b? a : b;
 }
 
-void init(int *arr, int n) {
-  for (int *p = arr; p-arr < n; p++) {
-    *p = p-arr;
-  }
+void shuffle(double *arr, int n) {
+    int c = 0;
+    for (int i=0; i<n-1; )  {
+        int offset = n-1-i;
+
+        for (int j=0; j<=i; j++) {
+            if (rand()%2) {
+                swap(arr, j, j+offset);
+            }
+        }
+        c++;
+        i += max((int)(n-1-i) * 0.02, 1);
+    }
+    printf("%d\n", c);
+}
+
+void swap(double *arr, int a, int b) {
+    int tmp = arr[a];
+    arr[a] = arr[b];
+    arr[b] = tmp;
+}
+
+void init(double *arr, int n) {
+    for (double *p = arr; p-arr < n; p++) {
+        *p = p-arr;
+    }
 }
