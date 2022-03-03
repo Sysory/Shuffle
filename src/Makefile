@@ -3,13 +3,12 @@
 CC= gcc
 CFLAGS= -c -g -Wall -Werror -Wextra 
 LDFLAGS= -g
+RESULT= ../build/
+EXEC= a.out
 
 SOURCES= main.c array_math.c
 
-OBJECTS= $(RESULT)$(SOURCES:.c=.o)
-
-RESULT= ../build/
-EXEC= a.out
+OBJECTS= $(addprefix $(RESULT), $(SOURCES:.c=.o))
 
 all: $(OBJECTS)
 	$(CC) $(LDFLAGS) $^ -o $(RESULT)$(EXEC)
