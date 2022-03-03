@@ -1,10 +1,41 @@
 #include "array_math.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
-void array_sum(double *arr1, double *arr2, double *res, int n) {
+void array_add_num(double *arr, double *res, int n, double num) {
+    for (int i = 0; i < n; i++) {
+        res[i] = arr[i] + num;
+    }
+}
+
+void array_mul_num(double *arr, double *res, int n, double num) {
+    for (int i = 0; i < n; i++) {
+        res[i] = arr[i] * num;
+    }
+}
+
+void array_add(double *arr1, double *arr2, double *res, int n) {
     for (int i = 0; i < n; i++) {
         res[i] = arr1[i] + arr2[i];
+    }
+}
+
+double array_quadratic_dev(double *arr, int n) {
+    double mean = array_mean(arr, n);
+    double res = 0;
+    for (int i = 0; i < n; i++) {
+        res += (arr[i] - mean) * (arr[i] - mean); 
+    }
+    res /= n;
+    return sqrt(res);
+}
+
+void array_merge(double *arr1, double *arr2, double *res, int n, double t) {
+    for (int i = 0; i < n; i++) {
+        res[i] = arr1[i] + t * (arr2[i] - arr1[i]);
+        // res[i] = arr1[i] * (1-t) + arr2[i] * t;
+        // printf("%lf\n", res[i]);
     }
 }
 
@@ -33,4 +64,13 @@ double array_min(double *arr, int n) {
     }
     
     return res;
+}
+
+double array_mean(double *arr, int n) {
+    double res = 0;
+    for (int i = 0; i < n; i++) {
+        res += arr[i];
+    }
+
+    return res / n;
 }

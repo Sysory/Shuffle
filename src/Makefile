@@ -11,7 +11,7 @@ SOURCES= main.c array_math.c
 OBJECTS= $(addprefix $(RESULT), $(SOURCES:.c=.o))
 
 all: $(OBJECTS)
-	$(CC) $(LDFLAGS) $^ -o $(RESULT)$(EXEC)
+	$(CC) $(LDFLAGS) $^ -o $(RESULT)$(EXEC) -lm
 
 $(RESULT)%.o: %.c
 	$(CC) $(CFLAGS) $< -o $@
