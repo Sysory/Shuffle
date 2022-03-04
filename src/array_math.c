@@ -21,14 +21,19 @@ void array_add(double *arr1, double *arr2, double *res, int n) {
     }
 }
 
-double array_quadratic_dev(double *arr, int n) {
+double array_disp(double *arr, int n) {
     double mean = array_mean(arr, n);
     double res = 0;
     for (int i = 0; i < n; i++) {
         res += (arr[i] - mean) * (arr[i] - mean); 
     }
     res /= n;
-    return sqrt(res);
+    return res;
+}
+
+double array_quadratic_dev(double *arr, int n) {
+    double disp = array_disp(arr, n);
+    return sqrt(disp);
 }
 
 void array_merge(double *arr1, double *arr2, double *res, int n, double t) {

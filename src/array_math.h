@@ -8,6 +8,7 @@ double array_max(double *arr, int n);
 double array_min(double *arr, int n);
 double array_mean(double *arr, int n);
 double array_quadratic_dev(double *arr, int n);
+double array_disp(double *arr, int n);
 
 void array_mul_num(double *arr, double *res, int n, double num);
 void array_add_num(double *arr, double *res, int n, double num);

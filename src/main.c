@@ -70,7 +70,7 @@ void test_distrib(double *arr, int n, int iters, void (*func)(double *, int)) {
     }
 
     array_mul_num(res, res, n, (double)1/iters);
-    printf("mean quadratic deviation = %.3lf\n", array_quadratic_dev(arr, n));
+    printf("dispersion = %.3lf\n", array_disp(arr, n));
     output(res, n);
     free(res);
 }
