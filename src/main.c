@@ -6,7 +6,8 @@
 
 #include "array_math.h"
 
-#define N 20
+#define N 256
+#define ENABLE_PROGRESS 0
 
 void init(double *, int);
 void test_distrib(double *arr, int n, int iters, void (*func)(double *, int));
@@ -19,15 +20,7 @@ int main(void) {
     srand(time(NULL));
 
     double arr[N];
-    test_distrib(arr, N, 1000000, shuffle);
-    // double norm[N];
-
-    // init(arr,N);
-    // shuffle(arr, N);
-    
-    // array_norm(arr, norm, N);
-
-    // output(norm, N);
+    test_distrib(arr, N, 10000, shuffle);
     return 0;
 }
 
@@ -54,7 +47,6 @@ void shuffle(double *arr, int n) {
         c++;
         i += max((int)(n-1-i) * 0.02, 1);
     }
-    // printf("%d\n", c);
 }
 
 void test_distrib(double *arr, int n, int iters, void (*func)(double *, int)) {
@@ -70,8 +62,9 @@ void test_distrib(double *arr, int n, int iters, void (*func)(double *, int)) {
     }
 
     array_mul_num(res, res, n, (double)1/iters);
-    printf("dispersion = %.3lf\n", array_disp(arr, n));
-    output(res, n);
+    printf("dispersion = %.3lf\n", array_disp(res, n));
+    printf("quadratic diveance = %.3lf\n", array_quadratic_dev(res, n));
+    printf("mean diveance = %.3lf\n", array_mean_div(res, n));
     free(res);
 }
 
