@@ -9,18 +9,19 @@
 #define N 256
 #define ENABLE_PROGRESS 1
 
-void init(double *, int);
+void init(double *arr, int n);
 void test_distrib(double *arr, int n, int iters, void (*func)(double *, int));
-void shuffle(double *, int);
-void output(double *, int);
-void swap(double *, int, int);
+void shuffle_fast(double *arr, int n);
+void shuffle(double *arr, int n);
+void output(double *arr, int n);
+void swap(double *arr, int a, int b);
 int max(int a, int b);
 
 int main(void) {
     srand(time(NULL));
 
     double arr[N];
-    test_distrib(arr, N, 10000, shuffle);
+    test_distrib(arr, N, 10000, shuffle_fast);
     return 0;
 }
 
@@ -32,6 +33,15 @@ void output(double *arr, int n) {
 
 int max(int a, int b) {
     return a > b? a : b;
+}
+
+void shuffle_fast(double *arr, int n) {
+    for (int i = n-1; i > 1; i--) {
+        int a = i;
+        int b = rand() % i;
+        // printf("swap %d and %d ", a, b);
+        swap(arr, a, b);
+    }
 }
 
 void shuffle(double *arr, int n) {
